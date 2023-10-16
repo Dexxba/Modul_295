@@ -19,9 +19,6 @@ public class Category {
     @Id
     private Integer id;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<Product> products;
-
     public Boolean getActive() {
         return active;
     }
@@ -46,11 +43,5 @@ public class Category {
         this.id = id;
     }
 
-    public List<Product> getProducts() {
-        return products;
-    }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
 }
