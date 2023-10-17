@@ -1,7 +1,4 @@
 package ch.csbe.modul_295.users;
-
-import ch.csbe.modul_295.category.Category;
-import ch.csbe.modul_295.category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,10 +14,10 @@ public class UsersController {
 
     @GetMapping("/users/{id}")
     public ResponseEntity<?> getUsers(@PathVariable int id) {
-        Users user = usersService.getUsers(id);
+        UserDto userDto = usersService.getUserDto(id);
 
-        if (user != null) {
-            return ResponseEntity.ok(user);
+        if (userDto != null) {
+            return ResponseEntity.ok(userDto);
         } else {
             String errorMessage = "User with ID " + id + " not found.";
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
