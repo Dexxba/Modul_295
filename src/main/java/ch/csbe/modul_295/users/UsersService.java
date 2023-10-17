@@ -1,6 +1,7 @@
 package ch.csbe.modul_295.users;
 
 import ch.csbe.modul_295.category.CategoryRepository;
+import ch.qos.logback.core.net.SyslogOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +24,41 @@ public class UsersService {
         userDto.setLastName(user.getLastName());
         userDto.setUsername(user.getUsername());
         userDto.setEmail(user.getEmail());
+        userDto.setAddress(user.getAddress());
         userDto.setProfilePicture(user.getProfilePicture());
         userDto.setActive(user.getActive());
         userDto.setRole(user.getRole());
         return userDto;
+    }
+    public Users createUser(UserDto userDto){
+        Users newUser = new Users();
+        return getUsers(userDto, newUser);
+    }
+    public Users updateUser(int id, UserDto userDto){
+        Users existingUser = usersRepository.findById(id).orElse(null);
+        if (existingUser == null){
+            return null;
+        }
+        return getUsers(userDto, existingUser);
+    }
+
+    public Users getUsers(UserDto userDto, Users existingUser) {
+        existingUser.setFirstName(userDto.getFirstName());
+        existingUser.setLastName(userDto.getLastName());
+        existingUser.setUsername(userDto.getUsername());
+        existingUser.setEmail(userDto.getEmail());
+        existingUser.setAddress(userDto.getAddress());
+        if (existingUser.getPassword() == null){
+            existingUser.setPassword(userDto.getPassword());
+        }
+        System.out.println(userDto.toString());
+        System.out.println(existingUser.getAddress());
+        existingUser.setProfilePicture(userDto.getProfilePicture());
+        existingUser.setActive(userDto.isActive());
+        existingUser.setRole(userDto.getRole());
+        return usersRepository.save(existingUser);
+    }
+    public void deleteUser(int id){
+        usersRepository.deleteById(id);
     }
 }

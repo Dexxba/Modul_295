@@ -1,8 +1,6 @@
 package ch.csbe.modul_295.users;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -12,6 +10,30 @@ public class UsersController {
     @Autowired
     private UsersService usersService;
 
+    @PostMapping("/users")
+    public ResponseEntity<?> createUser(@RequestBody UserDto userDto) {
+        System.out.println(userDto.toString());
+        Users newUser = usersService.createUser(userDto);
+        if (newUser != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to create user.");
+        }
+    }
+    @PutMapping("/users/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable int id, @RequestBody UserDto userDto) {
+        Users updatedUser = usersService.updateUser(id, userDto);
+        if (updatedUser != null) {
+            return ResponseEntity.ok(updatedUser);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with ID " + id + " not found.");
+        }
+    }
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable int id) {
+        usersService.deleteUser(id);
+        return ResponseEntity.ok("User with ID " + id + " has been deleted.");
+    }
     @GetMapping("/users/{id}")
     public ResponseEntity<?> getUsers(@PathVariable int id) {
         UserDto userDto = usersService.getUserDto(id);
