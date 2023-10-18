@@ -6,9 +6,7 @@ import ch.csbe.modul_295.users.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,11 +15,34 @@ public class ProductController {
     @Autowired
     private ProductService productservice;
 
+    @PostMapping("/product")
+    public ResponseEntity<?> createProduct(@RequestBody ProductDto productDto){
+        Product newProduct = productservice.createProduct(productDto);
+        if (newProduct != null){
+            return ResponseEntity.status(HttpStatus.CREATED).body(newProduct);
+        }else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to create product.");
+        }
+    }
+    @PutMapping("/product/{id}")
+    public ResponseEntity<?> updateProduct(@PathVariable int id, @RequestBody ProductDto productDto){
+        Product updateProduct = productservice.updateProduct(id,productDto);
+        if (updateProduct != null){
+            return ResponseEntity.ok(updateProduct);
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product with ID " + id + " not found.");
+        }
+    }
+@DeleteMapping("/product/{id}")
+public ResponseEntity<?> deleteProduct(@PathVariable int id){
+        productservice.deleteProduct(id);
+        return ResponseEntity.ok("Product with ID " + id + "has been deleted.");
+}
     @GetMapping("/product/{id}")
     public ResponseEntity<?> getProduct(@PathVariable int id) {
-        Product product = productservice.getProduct(id);
-        if (product != null) {
-            return ResponseEntity.ok(product);
+        ProductDto productDto = productservice.getProductDto(id);
+        if (productDto != null) {
+            return ResponseEntity.ok(productDto);
         } else {
             String errorMessage = "Product with ID " + id + " not found.";
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);

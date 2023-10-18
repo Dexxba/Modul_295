@@ -25,6 +25,18 @@ public class Product {
 
     @Column(columnDefinition = "Varchar(500)",nullable = false)
     private String name;
+    @Column(columnDefinition = "Varchar(1000)",nullable = false)
+    private String image;
+
+    @Column(columnDefinition = "mediumtext",nullable = false)
+    private String description;
+
+    @Column(columnDefinition = "float",nullable = false)
+    private Float price;
+
+
+    @Column(columnDefinition = "int",nullable = false)
+    private Integer stock;
 
     public long getId() {
         return id;
@@ -97,19 +109,5 @@ public class Product {
     public void setStock(Integer stock) {
         this.stock = stock;
     }
-
-    @Column(columnDefinition = "Varchar(1000)",nullable = false)
-    private String image;
-
-    @Column(columnDefinition = "mediumtext",nullable = false)
-    private String description;
-
-    @Column(columnDefinition = "float",nullable = false)
-    private Float price;
-
-
-    @Column(columnDefinition = "int",nullable = false)
-    private Integer stock;
-
 
 }
