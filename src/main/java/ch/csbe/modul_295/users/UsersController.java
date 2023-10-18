@@ -14,7 +14,7 @@ public class UsersController {
     public ResponseEntity<?> createUser(@RequestBody UserDto userDto) {
         Users newUser = usersService.createUser(userDto);
         if (newUser != null) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
+            return ResponseEntity.status(HttpStatus.CREATED).body("user added");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to create user.");
         }

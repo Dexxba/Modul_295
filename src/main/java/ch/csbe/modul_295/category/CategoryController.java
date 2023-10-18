@@ -17,7 +17,7 @@ public class CategoryController {
     public ResponseEntity<?> createCategory(@RequestBody CategoryDto categoryDto){
         Category newCategory = categoryService.createCategory(categoryDto);
         if (newCategory != null) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(newCategory);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Category added");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to create category.");
         }

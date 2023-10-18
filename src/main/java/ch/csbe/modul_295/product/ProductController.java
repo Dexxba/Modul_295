@@ -19,7 +19,7 @@ public class ProductController {
     public ResponseEntity<?> createProduct(@RequestBody ProductDto productDto){
         Product newProduct = productservice.createProduct(productDto);
         if (newProduct != null){
-            return ResponseEntity.status(HttpStatus.CREATED).body(newProduct);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Product added");
         }else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to create product.");
         }
