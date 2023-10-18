@@ -48,11 +48,9 @@ public class UsersService {
         existingUser.setUsername(userDto.getUsername());
         existingUser.setEmail(userDto.getEmail());
         existingUser.setAddress(userDto.getAddress());
-        if (existingUser.getPassword() == null){
+        if (userDto.getPassword() != null){
             existingUser.setPassword(userDto.getPassword());
         }
-        System.out.println(userDto.toString());
-        System.out.println(existingUser.getAddress());
         existingUser.setProfilePicture(userDto.getProfilePicture());
         existingUser.setActive(userDto.isActive());
         existingUser.setRole(userDto.getRole());
