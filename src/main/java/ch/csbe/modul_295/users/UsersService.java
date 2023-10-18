@@ -1,7 +1,5 @@
 package ch.csbe.modul_295.users;
 
-import ch.csbe.modul_295.category.CategoryRepository;
-import ch.qos.logback.core.net.SyslogOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +8,7 @@ public class UsersService {
     @Autowired
     private UsersRepository usersRepository;
 
-    public Users getUsers(int id) {
+    public Users saveUser(int id) {
 
         return usersRepository.findById(id).orElse(null);
     }
@@ -32,17 +30,17 @@ public class UsersService {
     }
     public Users createUser(UserDto userDto){
         Users newUser = new Users();
-        return getUsers(userDto, newUser);
+        return saveUser(userDto, newUser);
     }
     public Users updateUser(int id, UserDto userDto){
         Users existingUser = usersRepository.findById(id).orElse(null);
         if (existingUser == null){
             return null;
         }
-        return getUsers(userDto, existingUser);
+        return saveUser(userDto, existingUser);
     }
 
-    public Users getUsers(UserDto userDto, Users existingUser) {
+    public Users saveUser(UserDto userDto, Users existingUser) {
         existingUser.setFirstName(userDto.getFirstName());
         existingUser.setLastName(userDto.getLastName());
         existingUser.setUsername(userDto.getUsername());
