@@ -1,10 +1,13 @@
 package ch.csbe.modul_295.product;
 
 import ch.csbe.modul_295.category.Category;
+import jakarta.validation.constraints.NotBlank;
 
 public class ProductDto {
     private String sku;
+    @NotBlank
     private boolean active;
+    @NotBlank
     private String name;
     private String image;
     private String description;

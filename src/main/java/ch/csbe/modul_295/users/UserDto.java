@@ -1,9 +1,13 @@
 package ch.csbe.modul_295.users;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
+
 
 public class UserDto {
+    @NotBlank
     private String firstName;
+    @NotBlank
     private String lastName;
     private String username;
     private String email;

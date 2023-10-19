@@ -1,7 +1,10 @@
 package ch.csbe.modul_295.category;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class CategoryDto {
     private boolean active;
+    @NotBlank
     private String name;
 
     public boolean isActive() {
