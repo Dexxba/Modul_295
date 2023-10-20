@@ -2,11 +2,14 @@ package ch.csbe.modul_295.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 @Service
 public class UsersService {
     @Autowired
     private UsersRepository usersRepository;
+    private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     public Users saveUser(int id) {
 
@@ -47,7 +50,7 @@ public class UsersService {
         existingUser.setEmail(userDto.getEmail());
         existingUser.setAddress(userDto.getAddress());
         if (userDto.getPassword() != null){
-            existingUser.setPassword(userDto.getPassword());
+            existingUser.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         }
         existingUser.setProfilePicture(userDto.getProfilePicture());
         existingUser.setActive(userDto.isActive());

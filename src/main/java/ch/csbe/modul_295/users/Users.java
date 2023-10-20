@@ -14,7 +14,7 @@ public class Users {
     @Column(columnDefinition = "Varchar(50)", nullable = false)
     private String Username;
 
-    @Column(columnDefinition = "Varchar(20)", nullable = false)
+    @Column(columnDefinition = "Varchar(70)", nullable = false)
     private String Password;
 
     @Column(columnDefinition = "Varchar(50)" ,nullable = false)
