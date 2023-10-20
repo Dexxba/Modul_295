@@ -12,10 +12,14 @@ import org.springframework.security.web.SecurityFilterChain;
 public class AuthConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
+            authorizationManagerRequestMatcherRegistry.requestMatchers("/users").permitAll();
+            authorizationManagerRequestMatcherRegistry.anyRequest().authenticated();
+        });
+
+        httpSecurity.httpBasic(Customizer.withDefaults());
         return httpSecurity
-                .authorizeHttpRequests((authz) -> authz
-                        .anyRequest().permitAll()
-                )
+
                 .csrf(AbstractHttpConfigurer::disable).build();
     }
 }
