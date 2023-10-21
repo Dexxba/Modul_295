@@ -16,7 +16,7 @@ public class UserDto {
     private String password;
     private String address;
     private boolean active;
-    private String role;
+    private boolean isAdmin;
 
     public String getFirstName() {
         return firstName;
@@ -82,12 +82,12 @@ public class UserDto {
         this.active = active;
     }
 
-    public String getRole() {
-        return role;
+    public boolean isAdmin() {
+        return isAdmin;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 
     @Override
@@ -101,7 +101,7 @@ public class UserDto {
                 ", password='" + password + '\'' +
                 ", address='" + address + '\'' +
                 ", active=" + active +
-                ", role='" + role + '\'' +
+                ", isAdmin=" + isAdmin +
                 '}';
     }
 }

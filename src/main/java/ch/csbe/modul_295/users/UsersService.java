@@ -28,7 +28,7 @@ public class UsersService {
         userDto.setAddress(user.getAddress());
         userDto.setProfilePicture(user.getProfilePicture());
         userDto.setActive(user.getActive());
-        userDto.setRole(user.getRole());
+        userDto.setAdmin(user.isAdmin());
         return userDto;
     }
     public Users createUser(UserDto userDto){
@@ -54,7 +54,7 @@ public class UsersService {
         }
         existingUser.setProfilePicture(userDto.getProfilePicture());
         existingUser.setActive(userDto.isActive());
-        existingUser.setRole(userDto.getRole());
+        existingUser.setAdmin(userDto.isAdmin());
         return usersRepository.save(existingUser);
     }
     public void deleteUser(int id){

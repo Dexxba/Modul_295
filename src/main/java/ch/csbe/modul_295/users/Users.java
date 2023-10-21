@@ -2,8 +2,6 @@ package ch.csbe.modul_295.users;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 public class Users {
 
@@ -12,31 +10,31 @@ public class Users {
     private int id;
 
     @Column(columnDefinition = "Varchar(50)", nullable = false)
-    private String Username;
+    private String username;
 
     @Column(columnDefinition = "Varchar(70)", nullable = false)
-    private String Password;
+    private String password;
 
     @Column(columnDefinition = "Varchar(50)" ,nullable = false)
-    private String FirstName;
+    private String firstName;
 
     @Column(columnDefinition = "Varchar(50)", nullable = false)
-    private String LastName;
+    private String lastName;
 
     @Column(columnDefinition = "Varchar(1000)",nullable = false)
-    private String ProfilePicture;
+    private String profilePicture;
 
     @Column(columnDefinition = "Varchar(80)", nullable = false)
-    private String Email;
+    private String email;
 
     @Column(columnDefinition ="Varchar(50)", nullable = false)
-    private String Address;
+    private String address;
 
     @Column(columnDefinition = "tinyint", nullable = false)
     private Boolean active = false;
 
-    @Column(columnDefinition = "Varchar(50)", nullable = false)
-    private String Role;
+    @Column(columnDefinition = "tinyint", nullable = false)
+    private boolean isAdmin;
 
     public int getId() {
         return id;
@@ -47,59 +45,59 @@ public class Users {
     }
 
     public String getUsername() {
-        return Username;
+        return username;
     }
 
     public void setUsername(String username) {
-        Username = username;
+        this.username = username;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     public String getFirstName() {
-        return FirstName;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-        FirstName = firstName;
+        this.firstName = firstName;
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        this.lastName = lastName;
     }
 
     public String getProfilePicture() {
-        return ProfilePicture;
+        return profilePicture;
     }
 
     public void setProfilePicture(String profilePicture) {
-        ProfilePicture = profilePicture;
+        this.profilePicture = profilePicture;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public void setAddress(String address) {
-        Address = address;
+        this.address = address;
     }
 
     public Boolean getActive() {
@@ -110,11 +108,11 @@ public class Users {
         this.active = active;
     }
 
-    public String getRole() {
-        return Role;
+    public boolean isAdmin() {
+        return isAdmin;
     }
 
-    public void setRole(String role) {
-        Role = role;
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 }
