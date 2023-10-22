@@ -25,7 +25,10 @@ public class JwtFilter extends OncePerRequestFilter {
     private UsersRepository usersRepository;
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request){
-        return request.getRequestURI().equals("/users") || request.getRequestURI().equals("/auth/login");
+        return request.getRequestURI().equals("/users") ||
+                request.getRequestURI().equals("/auth/login") ||
+                request.getRequestURI().startsWith("/swagger-ui") ||
+                request.getRequestURI().startsWith("/v3");
     }
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException{

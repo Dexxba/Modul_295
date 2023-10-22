@@ -22,8 +22,13 @@ public class AuthConfig {
         return httpSecurity
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
-                    authorizationManagerRequestMatcherRegistry.requestMatchers(HttpMethod.POST, "/users")
-                            .permitAll().requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
+                    authorizationManagerRequestMatcherRegistry
+                            .requestMatchers(HttpMethod.POST, "/users").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                            .requestMatchers("/v3/api-docs").permitAll()
+                            .requestMatchers("/swagger-ui/**").permitAll()
+                            .requestMatchers("/v3/api-docs/swagger-config").permitAll();
+
                     authorizationManagerRequestMatcherRegistry
                             .requestMatchers(HttpMethod.DELETE, "/users/*").hasAuthority("admin")
                             .requestMatchers(HttpMethod.POST, "/category").hasAuthority("admin")
@@ -38,5 +43,4 @@ public class AuthConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }
-
 }
