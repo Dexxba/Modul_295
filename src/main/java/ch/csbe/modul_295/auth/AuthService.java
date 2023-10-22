@@ -1,5 +1,6 @@
 package ch.csbe.modul_295.auth;
 
+import ch.csbe.modul_295.jwt.JwtService;
 import ch.csbe.modul_295.login.LoginDto;
 import ch.csbe.modul_295.users.Users;
 import ch.csbe.modul_295.users.UsersRepository;
@@ -17,15 +18,16 @@ import org.springframework.web.server.ResponseStatusException;
 public class AuthService {
     @Autowired
     private UsersRepository usersRepository;
+    @Autowired
+    private JwtService jwtService;
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-    public void login(LoginDto loginDto) {
+    public String getJwt(LoginDto loginDto) {
         Users users = usersRepository.findByUsername(loginDto.getUsername()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        if (bCryptPasswordEncoder.matches(loginDto.getPassword(), users.getPassword())) {
-            System.out.println("Successful");
-        } else {
-            System.out.println("Not Successful");
+        if (!bCryptPasswordEncoder.matches(loginDto.getPassword(),users.getPassword())){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
+        return jwtService.createJwt(users.getUsername());
     }
 }
