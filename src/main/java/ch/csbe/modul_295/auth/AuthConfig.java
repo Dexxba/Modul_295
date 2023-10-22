@@ -16,6 +16,7 @@ public class AuthConfig {
 
     @Autowired
     private JwtFilter jwtFilter;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
@@ -23,6 +24,14 @@ public class AuthConfig {
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry.requestMatchers(HttpMethod.POST, "/users")
                             .permitAll().requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
+                    authorizationManagerRequestMatcherRegistry
+                            .requestMatchers(HttpMethod.DELETE, "/users/*").hasAuthority("admin")
+                            .requestMatchers(HttpMethod.POST, "/category").hasAuthority("admin")
+                            .requestMatchers(HttpMethod.PUT, "/category/*").hasAuthority("admin")
+                            .requestMatchers(HttpMethod.DELETE, "/category/*").hasAuthority("admin")
+                            .requestMatchers(HttpMethod.POST, "/product").hasAuthority("admin")
+                            .requestMatchers(HttpMethod.PUT, "/product/*").hasAuthority("admin")
+                            .requestMatchers(HttpMethod.DELETE, "/product/*").hasAuthority("admin");
                     authorizationManagerRequestMatcherRegistry.anyRequest().authenticated();
                 })
                 .httpBasic(AbstractHttpConfigurer::disable)

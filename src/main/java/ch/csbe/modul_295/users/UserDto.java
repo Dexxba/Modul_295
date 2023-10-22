@@ -16,7 +16,7 @@ public class UserDto {
     private String password;
     private String address;
     private boolean active;
-    private boolean isAdmin;
+    private boolean admin;
 
     public String getFirstName() {
         return firstName;
@@ -83,11 +83,11 @@ public class UserDto {
     }
 
     public boolean isAdmin() {
-        return isAdmin;
+        return admin;
     }
 
     public void setAdmin(boolean admin) {
-        isAdmin = admin;
+        this.admin = admin;
     }
 
     @Override
@@ -101,7 +101,7 @@ public class UserDto {
                 ", password='" + password + '\'' +
                 ", address='" + address + '\'' +
                 ", active=" + active +
-                ", isAdmin=" + isAdmin +
+                ", isAdmin=" + admin +
                 '}';
     }
 }
