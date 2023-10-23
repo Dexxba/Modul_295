@@ -6,25 +6,43 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
+/**
+ * This class provides services for working with JSON Web Tokens (JWTs).
+ */
 @Service
 public class JwtService {
+    // The secret key used for signing and verifying JWTs. It should be kept secure.
     private final String secret = "$2h@WzR9&pL#6XqW";
-    public String createJwt(String userName){
+
+    /**
+     * Creates a new JWT with the provided user name as its subject.
+     *
+     * @param userName The user name to be included in the JWT.
+     * @return A JWT as a string.
+     */
+    public String createJwt(String userName) {
         return Jwts
                 .builder()
-                .setIssuer("CsBe")
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() * 60 * 60 * 24 * 20))
-                .setSubject(userName)
-                .signWith(SignatureAlgorithm.HS256, secret)
-                .compact();
+                .setIssuer("CsBe") // Set the issuer of the JWT.
+                .setIssuedAt(new Date(System.currentTimeMillis())) // Set the issuance date of the JWT.
+                .setExpiration(new Date(System.currentTimeMillis() + 60L * 60L * 24L * 20L * 1000L)) // Set the expiration date (20 days in milliseconds).
+                .setSubject(userName) // Set the subject (user name) of the JWT.
+                .signWith(SignatureAlgorithm.HS256, secret) // Sign the JWT using the provided secret key and HMAC-SHA-256 algorithm.
+                .compact(); // Compact the JWT into a string.
     }
-    public String getUserName(String jwt){
+
+    /**
+     * Extracts the user name from a given JWT.
+     *
+     * @param jwt The JWT from which to extract the user name.
+     * @return The user name extracted from the JWT.
+     */
+    public String getUserName(String jwt) {
         return Jwts
                 .parser()
-                .setSigningKey(secret)
-                .parseClaimsJws(jwt)
+                .setSigningKey(secret) // Set the secret key for verifying the JWT.
+                .parseClaimsJws(jwt) // Parse the JWT claims with the provided key.
                 .getBody()
-                .getSubject();
+                .getSubject(); // Get the subject (user name) from the JWT's claims.
     }
 }
