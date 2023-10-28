@@ -21,15 +21,19 @@ public class JwtService {
      * @return A JWT as a string.
      */
     public String createJwt(String userName) {
+        long currentTime = System.currentTimeMillis(); // Current time
+        long endTime = currentTime + 60L * 60L * 24L * 20L * 1000L; // Expiration time (20 days in milliseconds)
+
         return Jwts
                 .builder()
                 .setIssuer("CsBe") // Set the issuer of the JWT.
-                .setIssuedAt(new Date(System.currentTimeMillis())) // Set the issuance date of the JWT.
-                .setExpiration(new Date(System.currentTimeMillis() + 60L * 60L * 24L * 20L * 1000L)) // Set the expiration date (20 days in milliseconds).
+                .setIssuedAt(new Date(currentTime)) // Set the issuance date of the JWT.
+                .setExpiration(new Date(endTime)) // Set the expiration date.
                 .setSubject(userName) // Set the subject (user name) of the JWT.
                 .signWith(SignatureAlgorithm.HS256, secret) // Sign the JWT using the provided secret key and HMAC-SHA-256 algorithm.
                 .compact(); // Compact the JWT into a string.
     }
+
 
     /**
      * Extracts the user name from a given JWT.
